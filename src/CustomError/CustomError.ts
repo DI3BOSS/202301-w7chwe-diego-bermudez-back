@@ -9,3 +9,5 @@ class CustomError extends Error {
     super(message);
   }
 }
+
+export default CustomError;
