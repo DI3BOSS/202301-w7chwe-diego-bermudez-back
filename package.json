@@ -1,0 +1,45 @@
+{
+  "name": "202301-w7chw-diego-bermudez-back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "npx tsc",
+    "build:dev": "npx tsc -w",
+    "start": "node dist",
+    "start:dev": "node --watch dist",
+    "test": "npx jest",
+    "test:coverage": "npx jest --coverage --watchAll=false",
+    "prepare": "husky install"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.2.0",
+    "cors": "^2.8.5",
+    "debug": "^4.3.4",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^6.10.0",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/chalk": "^2.2.0",
+    "@types/cors": "^2.8.13",
+    "@types/debug": "^4.1.7",
+    "@types/express": "^4.17.17",
+    "@types/morgan": "^1.9.4",
+    "@typescript-eslint/eslint-plugin": "^5.53.0",
+    "@typescript-eslint/parser": "^5.53.0",
+    "eslint": "^8.34.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-config-xo": "^0.43.1",
+    "eslint-config-xo-typescript": "^0.56.0",
+    "lint-staged": "^13.1.2",
+    "prettier": "^2.8.4",
+    "typescript": "^4.9.5",
+    "husky": "^8.0.0"
+  }
+}
