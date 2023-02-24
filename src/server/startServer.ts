@@ -1,6 +1,6 @@
 import createDebug from "debug";
-import express from "express";
 import type CustomError from "../CustomError/CustomError.js";
+import { app } from "./index.js";
 
 const debug = createDebug("server:startServer");
 const errorMessage = "Error on starting the server";
@@ -8,8 +8,6 @@ const errorAddresInUse = "EADDRINUSE";
 
 const portInUseMessage = (port: number) =>
   `The port number ${port} is already in use`;
-
-export const app = express();
 
 const startServer = async (port: number) =>
   new Promise((resolve, reject) => {
