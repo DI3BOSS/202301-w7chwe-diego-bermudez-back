@@ -1,4 +1,5 @@
-import { NextFunction, Request, Response } from "express";
+import debug from "debug";
+import { type NextFunction, type Request, type Response } from "express";
 import CustomError from "../../CustomError/CustomError.js";
 import User from "../../database/models/User.js";
 
