@@ -1,4 +1,3 @@
-import debug from "debug";
 import { type NextFunction, type Request, type Response } from "express";
 import CustomError from "../../CustomError/CustomError.js";
 import User from "../../database/models/User.js";
@@ -21,7 +20,7 @@ const getUsers = async (req: Request, res: Response, next: NextFunction) => {
 
     res.status(statusCodeOk).json({ users });
   } catch (error) {
-    next(customError(error));
+    next(customError(error as Error));
   }
 };
 
