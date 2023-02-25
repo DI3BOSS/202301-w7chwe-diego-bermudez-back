@@ -14,7 +14,11 @@ const customError = (error: Error) =>
     retrievingError
   );
 
-const getUsers = async (req: Request, res: Response, next: NextFunction) => {
+export const getUsers = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
     const users = await User.find().exec();
 
@@ -24,4 +28,16 @@ const getUsers = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default getUsers;
+export const registerUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    await User.create({ registerUser });
+
+    res.status(201).json({ registerUser });
+  } catch (error) {
+    next(customError(error as Error));
+  }
+};
