@@ -22,6 +22,7 @@ const userSchema = new Schema({
   },
   aboutme: {
     type: String,
+    minLength: 20,
   },
   relationships: {
     type: Object,
