@@ -12,14 +12,11 @@ const saltLength = 10;
 const useRegisterConfirmationMessage = (email: string) =>
   `The user with email ${email} has been registered`;
 
-const retrievingError = "Couldn't retrieve users.";
+const retrievingUsersError = "Couldn't retrieve users.";
+const unableToRegisterUserError = "Couldn't create user";
 
-export const customError = (error: Error) =>
-  new CustomError(
-    error.message,
-    statusCodeInternalServerError,
-    retrievingError
-  );
+export const customError = (error: Error, message: string) =>
+  new CustomError(error.message, statusCodeInternalServerError, message);
 
 export const getUsers = async (
   req: Request,
@@ -31,7 +28,7 @@ export const getUsers = async (
 
     res.status(statusCodeOk).json({ users });
   } catch (error) {
-    next(customError(error as Error));
+    next(customError(error as Error, retrievingUsersError));
   }
 };
 
@@ -60,6 +57,6 @@ export const registerUser = async (
       .status(statusCodeCreated)
       .json(useRegisterConfirmationMessage(user.email));
   } catch (error) {
-    next(customError(error as Error));
+    next(customError(error as Error, unableToRegisterUserError));
   }
 };
