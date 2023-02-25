@@ -1,4 +1,4 @@
-export interface UserStructure {
+export type UserStructure = {
   username: string;
   password: string;
   name: string;
@@ -6,8 +6,8 @@ export interface UserStructure {
   email: string;
   aboutme: string;
   relationships: {
-    friends: [];
-    foes: [];
+    friends: string[];
+    foes: string[];
   };
-}
+};
 export type UsersStructure = UserStructure[];

@@ -26,7 +26,7 @@ try {
   await connectToDatabase(mongoDbUrl!);
   debug(chalk.bgGreen(connectionMessage));
 
-  await startServer(+port);
+  await startServer(port as number);
   debug(chalk.bgGreen(listeningMessage(port)));
 } catch (error) {
   debug(chalk.bgRed(error.message));

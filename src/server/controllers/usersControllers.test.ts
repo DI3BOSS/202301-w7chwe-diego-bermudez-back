@@ -1,6 +1,6 @@
-import { Response, Request } from "express-serve-static-core";
+import { type Response, type Request } from "express";
 import User from "../../database/models/User";
-import { UsersStructure } from "../../types";
+import { type UsersStructure } from "../../types.js";
 import getUsers from "./usersControllers";
 
 beforeEach(() => jest.restoreAllMocks());
@@ -31,11 +31,10 @@ describe("Given the getUsers controller middleware", () => {
     test("Then it should call its status method with 200 code", async () => {
       const response = {
         status: jest.fn().mockReturnThis(),
-
         json: jest.fn().mockResolvedValue(mockedUsers),
-      } as Partial<Response>;
+      };
 
-      const request = {} as Request;
+      const request = {};
 
       const next = jest.fn();
 
@@ -45,19 +44,23 @@ describe("Given the getUsers controller middleware", () => {
         exec: jest.fn().mockReturnValue(mockedUsers),
       }));
 
-      await getUsers(request as Request, response as Response, next);
+      await getUsers(
+        request as Request,
+        response as unknown as Response<unknown>,
+        next
+      );
 
       expect(response.status).toHaveBeenCalledWith(expectedStatusCode);
     });
 
     test("Then it should call its json method", async () => {
-      const res = {
+      const response = {
         status: jest.fn().mockReturnThis(),
 
         json: jest.fn().mockResolvedValue(mockedUsers),
-      } as Partial<Response>;
+      };
 
-      const req = {} as Request;
+      const request = {};
 
       const next = jest.fn();
 
@@ -65,9 +68,13 @@ describe("Given the getUsers controller middleware", () => {
         exec: jest.fn().mockReturnValue(mockedUsers),
       }));
 
-      await getUsers(req, res as Response, next);
+      await getUsers(
+        request as Request,
+        response as unknown as Response<unknown>,
+        next
+      );
 
-      expect(res.json).toHaveBeenCalledWith({ users: mockedUsers });
+      expect(response.json).toHaveBeenCalledWith({ users: mockedUsers });
     });
   });
 });
