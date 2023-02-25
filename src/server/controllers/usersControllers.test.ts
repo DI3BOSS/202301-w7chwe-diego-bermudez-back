@@ -1,7 +1,7 @@
 import { type Response, type Request } from "express";
 import User from "../../database/models/User";
 import { type UsersStructure } from "../../types.js";
-import getUsers from "./usersControllers";
+import { getUsers } from "./usersControllers";
 
 beforeEach(() => jest.restoreAllMocks());
 
