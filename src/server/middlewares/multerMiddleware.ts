@@ -8,7 +8,9 @@ const storage = multer.diskStorage({
     callback(null, "uploads/avatars/");
   },
   filename(req, file, callback) {
-    callback(null, `${fileNamePrefix()}-${file.originalname}`);
+    if (file.size < 2048) {
+      callback(null, `${fileNamePrefix()}-${file.originalname}`);
+    }
   },
 });
 

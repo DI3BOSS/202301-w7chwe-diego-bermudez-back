@@ -8,13 +8,13 @@ const statusCodeOk = 200;
 const statusCodeCreated = 201;
 const statusCodeInternalServerError = 500;
 
-const saltLength = 12;
+const saltLength = 10;
 const useRegisterConfirmationMessage = (email: string) =>
-  `Usuario con email ${email} creado`;
+  `The user with email ${email} has been registered`;
 
 const retrievingError = "Couldn't retrieve users.";
 
-const customError = (error: Error) =>
+export const customError = (error: Error) =>
   new CustomError(
     error.message,
     statusCodeInternalServerError,
