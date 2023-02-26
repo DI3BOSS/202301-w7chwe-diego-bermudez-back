@@ -30,7 +30,7 @@ const mockedUsers: UsersStructure = [
 ];
 
 describe("Given the getUsers controller middleware", () => {
-  describe("When it receives a request from a user", () => {
+  describe("When it receives a request from an user", () => {
     test("Then it should call its status method with 200 code", async () => {
       const response = {
         status: jest.fn().mockReturnThis(),
