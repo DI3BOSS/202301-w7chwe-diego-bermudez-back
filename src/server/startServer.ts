@@ -3,8 +3,8 @@ import type CustomError from "../CustomError/CustomError.js";
 import { app } from "./index.js";
 
 const debug = createDebug("server:startServer");
-const errorMessage = "Error on starting the server";
-const errorAddresInUse = "EADDRINUSE";
+const startingServerErrorMessage = "Error on starting the server";
+const errorCodeAddresInUse = "EADDRINUSE";
 
 const portInUseMessage = (port: number) =>
   `The port number ${port} is already in use`;
@@ -16,11 +16,11 @@ const startServer = async (port: number) =>
     });
 
     server.on("error", (error: CustomError) => {
-      if (error.code === errorAddresInUse) {
-        debug(errorMessage, portInUseMessage(port));
+      if (error.code === errorCodeAddresInUse) {
+        debug(startingServerErrorMessage, portInUseMessage(port));
       }
 
-      reject(new Error(errorMessage));
+      reject(new Error(startingServerErrorMessage));
     });
   });
 
