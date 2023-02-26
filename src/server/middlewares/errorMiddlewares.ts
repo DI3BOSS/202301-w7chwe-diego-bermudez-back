@@ -5,6 +5,7 @@ import CustomError from "../../CustomError/CustomError";
 export const statusCodeInternalServerError = 500;
 export const unableToRegisterUserError = "Couldn't create user";
 export const retrievingUsersError = "Couldn't retrieve users.";
+const somethingWenWrongMessage = "Something went wrong";
 
 const statusCodeNotFound = 404;
 const pathNotFound = "Path not found";
@@ -24,4 +25,17 @@ export const errorNotFound = (
   );
 
   next(error);
+};
+
+export const errorByDefault = (
+  error: CustomError,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  debug(error.message);
+
+  res
+    .status(error.statusCode || statusCodeInternalServerError)
+    .json({ error: error.publicMessage || somethingWenWrongMessage });
 };
