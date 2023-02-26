@@ -1,12 +1,16 @@
 import bcryptjs from "bcryptjs";
 import { type NextFunction, type Request, type Response } from "express";
+import jwt from "jsonwebtoken";
 import CustomError from "../../CustomError/CustomError.js";
 import User from "../../database/models/User.js";
 import { type UserStructure } from "../../types.js";
 import {
   retrievingUsersError,
   statusCodeInternalServerError,
+  statusCodeUnauthorized,
   unableToRegisterUserError,
+  unauthorizedUserError,
+  wrongCredentialsError,
 } from "../middlewares/errorMiddlewares.js";
 
 const statusCodeOk = 200;
@@ -69,4 +73,33 @@ export const registerUser = async (
       )
     );
   }
+};
+
+export const loginUser = async (
+  req: Request<Record<string, unknown>, Record<string, unknown>, UserStructure>,
+  res: Response,
+  next: NextFunction
+) => {
+  const { username, password } = req.body;
+
+  const user = await User.findOne({ username, password });
+
+  if (!user) {
+    const error = new CustomError(
+      wrongCredentialsError,
+      statusCodeUnauthorized,
+      unauthorizedUserError
+    );
+
+    next(error);
+
+    return;
+  }
+
+  const jsonWebTokenPayload = {
+    sub: user?._id,
+  };
+
+  const token = jwt.sign(jsonWebTokenPayload, process.env.JWT_SECRET!);
+  res.status(statusCodeOk).json({ token });
 };

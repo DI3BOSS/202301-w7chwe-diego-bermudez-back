@@ -11,6 +11,11 @@ const statusCodeNotFound = 404;
 const pathNotFound = "Path not found";
 const endPointNotFoundMessage = "End point not found";
 
+export const statusCodeUnauthorized = 401;
+export const wrongCredentialsError = "Wrong credentials";
+export const unauthorizedUserError =
+  "Login failed, please check your username / password and try again";
+
 export const debug = createDebug("SN_server:");
 
 export const errorNotFound = (
