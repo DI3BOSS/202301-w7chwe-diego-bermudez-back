@@ -1,9 +1,9 @@
 import "./loadEnvironment.js";
+import startServer from "./server/startServer.js";
 import chalk from "chalk";
 import createDebug from "debug";
 import mongoose from "mongoose";
 import connectToDatabase from "./database/connectToDatabase.js";
-import startServer from "./server/startServer.js";
 
 export const debug = createDebug("SN_Connection:");
 
@@ -11,7 +11,7 @@ const port = process.env.PORT ?? 4000;
 const mongoDbUrl = process.env.MONGODB_URL_CONNECTION;
 
 const connectionMessage = chalk.bold("Connected to data base");
-const listeningMessage = (port: string | number) =>
+const listeningMessage = (port: number | string) =>
   chalk.bold(`Server listening on port ${port}`);
 
 mongoose.set("toJSON", {

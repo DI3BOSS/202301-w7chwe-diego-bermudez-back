@@ -14,13 +14,18 @@ module.exports = {
       files: ["src/**/models/**/*.ts", "src/server/routers/usersRouters.ts"],
       rules: { "@typescript-eslint/naming-convention": "off" },
     },
+    {
+      rules: {
+        "@typescript-eslint/consistent-type-definitions": [
+          "error",
+          "interface",
+        ],
+        "@typescript-eslint/consistent-type-assertions": ["off"],
+      },
+    },
   ],
   parserOptions: {
     ecmaVersion: "latest",
     sourceType: "module",
-  },
-  rules: {
-    "@typescript-eslint/consistent-type-definitions": ["error", "interface"],
-    "@typescript-eslint/consistent-type-assertions": ["off"],
   },
 };
