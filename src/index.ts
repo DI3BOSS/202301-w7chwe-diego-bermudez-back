@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 import connectToDatabase from "./database/connectToDatabase.js";
 import startServer from "./server/startServer.js";
 
-export const debug = createDebug("SN-Connection:");
+export const debug = createDebug("SN_Connection:");
 
 const port = process.env.PORT ?? 4000;
 const mongoDbUrl = process.env.MONGODB_URL_CONNECTION;
