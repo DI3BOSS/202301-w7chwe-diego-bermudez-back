@@ -1,16 +1,27 @@
-import bcryptjs from "bcryptjs";
+import bcrypt from "bcryptjs";
 import { type NextFunction, type Request, type Response } from "express";
+import jwt from "jsonwebtoken";
 import CustomError from "../../CustomError/CustomError.js";
 import User from "../../database/models/User.js";
 import { type UserStructure } from "../../types.js";
 import {
   retrievingUsersError,
   statusCodeInternalServerError,
+  statusCodeUnauthorized,
   unableToRegisterUserError,
+  unauthorizedUserError,
+  wrongCredentialsError,
 } from "../middlewares/errorMiddlewares.js";
+import { type CustomJwtPayload } from "./types.js";
 
 const statusCodeOk = 200;
 const statusCodeCreated = 201;
+
+const unathorizedError = new CustomError(
+  wrongCredentialsError,
+  statusCodeUnauthorized,
+  unauthorizedUserError
+);
 
 const saltLength = 10;
 const useRegisterConfirmationMessage = (email: string) =>
@@ -46,7 +57,7 @@ export const registerUser = async (
 
     const avatar = req.file;
 
-    const hashedPassword = await bcryptjs.hash(password, saltLength);
+    const hashedPassword = await bcrypt.hash(password, saltLength);
 
     const user = await User.create({
       name,
@@ -68,5 +79,35 @@ export const registerUser = async (
         unableToRegisterUserError
       )
     );
+  }
+};
+
+export const loginUser = async (
+  req: Request<Record<string, unknown>, Record<string, unknown>, UserStructure>,
+  res: Response,
+  next: NextFunction
+) => {
+  const { username, password } = req.body;
+
+  try {
+    const user = await User.findOne({ username }).exec();
+
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+      next(unathorizedError);
+
+      return;
+    }
+
+    const jsonWebTokenPayload: CustomJwtPayload = {
+      sub: user?._id.toString(),
+      username: user.username,
+    };
+
+    const token = jwt.sign(jsonWebTokenPayload, process.env.JWT_SECRET!, {
+      expiresIn: "3d",
+    });
+    res.status(statusCodeOk).json({ token });
+  } catch (error) {
+    next(error);
   }
 };

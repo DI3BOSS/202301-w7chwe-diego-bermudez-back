@@ -2,14 +2,13 @@ import createDebug from "debug";
 import type CustomError from "../CustomError/CustomError.js";
 import { app } from "./index.js";
 
-const debug = createDebug("server:startServer");
+const debug = createDebug("server:startServer:");
 const startingServerErrorMessage = "Error on starting the server";
 const errorCodeAddresInUse = "EADDRINUSE";
-
-const portInUseMessage = (port: number) =>
+const portInUseMessage = (port: number | string) =>
   `The port number ${port} is already in use`;
 
-const startServer = async (port: number) =>
+const startServer = async (port: number | string) =>
   new Promise((resolve, reject) => {
     const server = app.listen(port, () => {
       resolve(server);

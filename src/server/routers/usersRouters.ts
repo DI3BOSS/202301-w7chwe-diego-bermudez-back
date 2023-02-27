@@ -1,9 +1,14 @@
 import { Router } from "express";
-import { getUsers, registerUser } from "../controllers/usersControllers.js";
+import {
+  getUsers,
+  loginUser,
+  registerUser,
+} from "../controllers/usersControllers.js";
 import upload from "../middlewares/multerMiddleware.js";
 
 const getUsersEndpoint = "/";
 const registerUserEndpoint = "/register";
+const loginUserEndpoint = "/login";
 const userProfileImage = "avatar";
 
 // eslint-disable-next-line new-cap
@@ -15,5 +20,6 @@ usersRouter.post(
   upload.single(userProfileImage),
   registerUser
 );
+usersRouter.post(loginUserEndpoint, loginUser);
 
 export default usersRouter;

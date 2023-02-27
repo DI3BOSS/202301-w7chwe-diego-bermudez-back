@@ -1,6 +1,6 @@
 import { type Request, type NextFunction, type Response } from "express";
-import CustomError from "../../CustomError/CustomError";
-import { errorByDefault, errorNotFound } from "./errorMiddlewares";
+import CustomError from "../../CustomError/CustomError.js";
+import { errorByDefault, errorNotFound } from "./errorMiddlewares.js";
 
 const request = {};
 
